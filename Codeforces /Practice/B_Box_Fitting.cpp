@@ -33,7 +33,7 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
-
+// uses multiset erase and its inbuilt upper bound function 
 
 void solve(){
     int n;
