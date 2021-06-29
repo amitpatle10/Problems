@@ -34,7 +34,18 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
+/*
 
+Here we have maintained a steps varible which when becomes zero we ask the max reach variable hey can 
+reach more steps ahead 
+
+If yes we update steps as max_reach - i
+
+At every steps becoming zero we update ans as ans++
+
+
+
+*/
 
 void solve(){
     int n;
@@ -45,17 +56,24 @@ void solve(){
     }
     int steps = v[0];
     int max_reach  = v[0];
+    if (steps==0){
+        cout<<-1<<endl;
+        return;
+    }
     int ans  = 1;
     for (int i=1;i<n-1;i++){
         steps--;
+        max_reach = max(max_reach,v[i]+i);
         if (steps==0){
-            max_reach = max(max_reach,v[i]+i);
+            
             steps = max_reach - i;
+
             if (steps<=0){
                 cout<<-1<<endl;
                 return;
             }
             ans ++ ;
+
         }
     }
     cout<<ans<<endl;
