@@ -36,12 +36,18 @@ using namespace std;
 
 /*
 
-Here we have maintained a steps varible which when becomes zero we ask the max reach variable hey can 
+Here we have maintained 
+a steps varible which
+when becomes zero we
+ask the max reach
+variable hey can 
 reach more steps ahead 
 
-If yes we update steps as max_reach - i
+If yes we update steps
+as max_reach - i
 
-At every steps becoming zero we update ans as ans++
+At every steps becoming 
+zero we update ans as ans++
 
 
 
