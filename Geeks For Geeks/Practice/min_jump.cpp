@@ -40,7 +40,7 @@ Here we have maintained
 a steps varible which
 when becomes zero we
 ask the max reach
-variable hey can 
+variable hey can i
 reach more steps ahead 
 
 If yes we update steps
