@@ -33,26 +33,37 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
-// ans will be K + x we know
-// now what is that x 
-// x = (k+x)/n
-// nx = (k+x)
-// x = k/(n-1);
-// but if now k+x is divisible by n we need to reduce the value by 1;
+//    1 2
+//    3 3
+//    4 5
+//    5 7
 
+// so one observation we can see is sum at every stage % 3 = 0
 
+// but now 1 8 can also be valid 
+// but its not the correct case so one more 
+// condition to put on is acc to x 2x is
+// a*2 >= b because lets take the worst 
+// case scenario a and b we substract a with a and b with 2*a
+// but here if b is still positive then ans 
+// is no hence we check if a*2 is greater or not than b 
+//.....it should be greater for correct ans........
 
 
 void solve(){
-    int n;
-    cin>>n;
-    int k;
-    cin>>k;
-    int ans = k + (k/(n-1));
-    if (ans%n==0){
-        ans--;
+    int a,b;
+    cin>>a>>b;
+    int t = a;
+    a = min(a,b);
+    b = max(t,b);
+    if ((a+b)%3==0 && a*2 >= b){
+        cout<<"YES"<<endl;
     }
-    cout<<ans<<endl;
+    else{
+        cout<<"NO"<<endl;
+    }
+
+
 }
 
 int32_t main() {

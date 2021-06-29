@@ -33,26 +33,38 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
-// ans will be K + x we know
-// now what is that x 
-// x = (k+x)/n
-// nx = (k+x)
-// x = k/(n-1);
-// but if now k+x is divisible by n we need to reduce the value by 1;
-
-
+// Here we want to print the number of the verse we want to skip 
+// so here we want to skip the first wall obviously 
+// wall here is biggest number 
 
 
 void solve(){
-    int n;
-    cin>>n;
-    int k;
-    cin>>k;
-    int ans = k + (k/(n-1));
-    if (ans%n==0){
-        ans--;
+    int n,s;
+    cin>>n>>s;
+    vector<int>verse(n);
+    for (int i=0;i<n;i++){
+        cin>>verse[i];
+
     }
-    cout<<ans<<endl;
+    
+    int part = 0;
+    int total = 0 ; 
+    int max_ele = 0;
+    for (int i=0;i<n;i++){
+        total += verse[i];
+        if (verse[i]>max_ele){
+            max_ele = verse[i];
+            part = i;
+        }
+        if (total>s){
+            cout<<part+1<<endl;
+            return;
+        }
+    }
+    cout<<0<<endl;
+    
+    
+    
 }
 
 int32_t main() {

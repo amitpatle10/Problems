@@ -33,33 +33,39 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
-// ans will be K + x we know
-// now what is that x 
-// x = (k+x)/n
-// nx = (k+x)
-// x = k/(n-1);
-// but if now k+x is divisible by n we need to reduce the value by 1;
-
-
 
 
 void solve(){
     int n;
     cin>>n;
-    int k;
-    cin>>k;
-    int ans = k + (k/(n-1));
-    if (ans%n==0){
-        ans--;
+    vector<int>ans(n+1,0);
+    int pos = 0;
+    for (int i=2;i<=n;i++){
+        if (ans[i]==0){
+            pos++;
+        }
+        for (int j=1;i*j<=n;j++){
+            
+            if (ans[i*j]==0){
+                ans[i*j] = pos;
+            }
+            
+                   
+        }
+        
     }
-    cout<<ans<<endl;
+    for (int i=2;i<=n;i++){
+        cout<<ans[i]<<" ";
+    }
+    cout<<endl;
+
 }
 
 int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    cin>>t;
+    t=1;
     while(t--){
         solve();
     }

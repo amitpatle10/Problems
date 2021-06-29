@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -33,33 +34,40 @@
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
-// ans will be K + x we know
-// now what is that x 
-// x = (k+x)/n
-// nx = (k+x)
-// x = k/(n-1);
-// but if now k+x is divisible by n we need to reduce the value by 1;
-
-
 
 
 void solve(){
     int n;
     cin>>n;
-    int k;
-    cin>>k;
-    int ans = k + (k/(n-1));
-    if (ans%n==0){
-        ans--;
+    vector<int>v(n);
+    for (int i=0;i<n;i++){
+        cin>>v[i];
+    }
+    int steps = v[0];
+    int max_reach  = v[0];
+    int ans  = 1;
+    for (int i=1;i<n-1;i++){
+        steps--;
+        if (steps==0){
+            max_reach = max(max_reach,v[i]+i);
+            steps = max_reach - i;
+            if (steps<=0){
+                cout<<-1<<endl;
+                return;
+            }
+            ans ++ ;
+        }
     }
     cout<<ans<<endl;
+    return;
+
 }
 
 int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    cin>>t;
+    t=1;
     while(t--){
         solve();
     }
