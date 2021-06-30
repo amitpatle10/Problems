@@ -36,24 +36,39 @@ using namespace std;
 
 5 5 3 5           
 1 2
-3 4
+1 3 
 2 4
 1 4    
 2 5
 
-
 */
+int city;
+int roades;
 
-int get_time(int pass,int t){
-    return t - pass%t;
+int t;
+int c;
+int get_time(int pass){
+    int a;
+    int b;
+    a = (pass/t)*t;
+    b = ceil((float)pass/(float)t)*t;
+    if (a%2==0 && b%2!=0){
+        return 0;
+    }
+    else if (a%2!=0 && b%2==0){
+        return b - pass;
+    }
+    else if (pass%2==0){
+        return 0;
+    }
+    else {
+        return t;
+    }
 }
-
+    
 void solve(){
-    int city;
-    int roades;
     cin>>city>>roades;
-    int t;
-    int c;
+    
     cin>>t>>c;
     
     vector<int>g[100001];
@@ -67,57 +82,42 @@ void solve(){
     }
     //bfs;
     
-    
+    vector<int>nodes(city+1,INT_MAX);
     vector<int>visited(city+1,false);
     queue<int>q;
-    
-    q.push(city);
-    visited[city] = true;
-    vector<int>ans(city+1,0);
-    vector<int>edges(city+1,INT_MAX);
-    edges[city] = 0;
-    ans[city] = 1;
-    bool can_reach_one  = false;
+    nodes[1] = 0;
+    q.push(1);
+    visited[1] = true;
     while(!q.empty()){
         int node = q.front();
         q.pop();
-        int e = edges[node];
+        int dist = nodes[node];
         
         for (auto x:g[node]){
+            int extra  = get_time(dist+c);
+            
+            int time_spent = dist + c + extra;
 
-            
-            
-            if (e+1 == edges[x]){
-                ans[x]++;
+            if (x==city){
+                
+                nodes[x] = min(nodes[x],time_spent - extra);
+                
                 continue;
             }
-            if (edges[x]==INT_MAX && visited[x]==false){
-                edges[x] = e+1;
-                
-                visited[x] = true;
-                ans[x]++;
-                if (x!=1){
-                    q.push(x);
-                } 
-                else{
-                    can_reach_one = true;
-                }
-            } 
-                      
             
+            if (visited[x]==true){
+                nodes[x] = min(nodes[x],time_spent);
+                continue;
+            }
             
+            visited[x] = true;
+            nodes[x] = time_spent;
+            q.push(x);
         }
 
     }
-    for (int i=1;i<=city;i++){
-        if (ans[i]==INT_MAX || can_reach_one==false){
-            ans[i] = 0;
-        }
-        cout<<ans[i]<<" ";
-    }
-    cout<<endl;
     
-    
+    cout<<nodes[city]<<endl;
 
 
 }

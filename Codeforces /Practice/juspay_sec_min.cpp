@@ -48,8 +48,25 @@ vector<int>g[100001];
 vector<int>all_possible;
 
 int get_time(int pass){
-    return t - pass%t;
+    int a;
+    int b;
+    a = (pass/t)*t;
+    b = ceil((float)pass/(float)t)*t;
+    if (a%2==0 && b%2!=0){
+        return 0;
+    }
+    else if (a%2!=0 && b%2==0){
+        return b - pass;
+    }
+    else if (pass%2==0){
+        return 0;
+    }
+    else {
+        return t;
+    }
 }
+    
+
 
 void dfs(int i,vector<int>visited,int time){
     if (i==city){
@@ -109,6 +126,8 @@ void solve(){
         }
         cout<<ans<<endl;
     }
+    
+
    
     
 
