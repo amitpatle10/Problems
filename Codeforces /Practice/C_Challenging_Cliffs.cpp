@@ -24,65 +24,70 @@
 #include <stdlib.h>
 #include <assert.h>
 #define MOD 1000000007
-#define ll long long 
-#define ld long double
+#define int long long
+#define float long double
 #define deb(x) cout << #x << " " << x << endl
 #define deb2(x,y) cout << #x << " " << x << " "  << #y << " " << y << endl
 #define deb3(x, y, z) cout << #x << " " << x << " "  << #y << " " << y << " "  << #z << " " << z << endl
 using namespace std;
 
 /*
-In this problem we want to minimize the cost 
-so we built min positive roads and maximum 
-negative roads
-let pastures be a b c d 
-The optimal way will be 
-
-0 ---> a ---> b ----> c ----> d
-
-this will be positive ways
-and construct negative ways from 
-every pastures to previous every pastures 
-
-eg : b --> a 
-     b --->0
-
-
+    let's suppose the sequence is 
+    a b c d e f 
+    and it is sorted 
+    now id c and d have the min difference 
+    then the optimal way by obervation will be
+    d e f a b c
+    we will get the min |h1 - hn|
+    and difficulty wil be n-2 if numbers are not same or less
+    but will be max off course 
+    
 */
 
-
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    vector<ll>v(n);
+    int arr[n];
     for (int i=0;i<n;i++){
-        cin>>v[i];
+        cin>>arr[i];
     }
-    ll ans  = 0;
-    ll sum  = 0;
-    sort(v.begin(),v.end());
-    ll neg_roads[n];
-    neg_roads[0] = 0;
-    for (int i=1;i<n;i++){        
-        neg_roads[i] = neg_roads[i-1] + (v[i] - v[i-1])*i;    
-        ans  -= neg_roads[i] ;   
+    
+    sort(arr,arr+n);
+    if (n==2){
+        cout<<arr[0]<<" "<<arr[1]<<endl;
+        return;
     }
-    ans += v.back();
+    int a = arr[0];
+    int b = arr[1];
+    map<int,int>check;
+    int id1 = 1;
+    int id2 = 0;
+    for (int i=2;i<n;i++){
+        if (arr[i]-arr[i-1]<=(b-a)){
+            b = arr[i];
+            a = arr[i-1];
+            id1  = i;
+            id2 = i-1;
+        }  
+        
+    }
     
     
-    cout<<ans<<endl;
+    for(int i=id1;i<n;i++){
+        
+        cout<<arr[i]<<" ";
+    }
+    for (int i=0;i<=id2;i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+    
 
-
-
-
-
-
-
-
+    
 
 }
 
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
