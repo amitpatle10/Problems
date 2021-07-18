@@ -1,4 +1,9 @@
 /*
+The Basic Logic is if the target node lets suppose is in left subtree of the 
+current node then the time taken would be sum of these two
+1. time taken to reach the target node 
+2. height of the right subtree
+
 
 
 
