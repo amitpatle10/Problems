@@ -13,6 +13,7 @@ class Solution
         
         
         while(!pq.empty()){
+
             int dist = pq.top().first;
             int node = pq.top().second;
            
@@ -27,8 +28,7 @@ class Solution
                     pq.push({ans[p],p});
                     
                 }
-            }
-            
+            }            
             
         }
         return ans;
