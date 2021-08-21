@@ -35,27 +35,39 @@ using namespace std;
 
 */
 
+
+int cost;
+
+
+struct comp { 
+    bool operator ()(vector<int> & a , vector <int> &b){
+        return a[0] + cost*(a[1]+a[2])  < b[0] + cost*(b[1]+b[2]);
+    }
+};
+
 void solve(){
-    int n ; 
-    cin >> n ; 
-    vector<pair<int,int>> check; 
-    for (int i = 0 ; i < n; i ++){
-        int a, b; 
-        cin >> a >> b; 
-        check.push_back(make_pair(a, b)); 
-        
+    int r, c; 
+    cin >> r >> c >> cost;  
+    int temp;
+    
+    vector < vector < int > > v;
+    for (int i = 0; i < r ; i++){
+        for (int j = 0; j < c; j++){
+            cin>>temp;
+            v.push_back({temp,i,j});
+        }
     }
-    int ans = 0;
-    sort(check.begin(),check.end(),greater<pair<int,int> >());
-    for (int i = 0; i < n; i ++){
-        int count = (check[i].second/4) * 4;
-        ans += (count * check[i].first ) ; 
-                      
+    sort(v.begin(), v.end(),comp());
+
+    int ans  = INT_MAX;
+    
+    for (int i = 1;i < v.size(); i++){
+        ans = min (ans, v[i][0] + v[i-1][0] + (cost*(abs (v[i][1] - v[i-1][1]) + abs (v[i][2] - v[i-1][2]))));
+        // cout<<v[i][0]<<v[i][1]<<v[i][2]<<endl;
     }
-    for (int i = 1; i < n ; i ++){
-        ans += ((check[i].second%4)/2)*check[i].first + ((check[i-1].second%4)/2)*check[i-1].first;
-    }
-    cout<<ans<<endl;
+    cout << ans << endl;
+    
+    
 
 }
 

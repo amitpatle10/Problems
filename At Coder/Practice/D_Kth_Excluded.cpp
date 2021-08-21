@@ -32,61 +32,49 @@
 using namespace std;
 
 /*
+Binary search and prefix 
+low stores the number of valid nums less than v[i]
+Now 
+in    3 5 6 7
+low   2 3 3 3
+now if i want 5th num
+i will check the lower bound of 
+5 place using low array here is low.end
+so ans will be 7(last num obviously) + (f - low[n-1](total skipped nums))
+
+now if we want 3rd num 
+lower bound will be 3 
+so ans will be ( (v[ind] - 1) - (low[ind]-f) )
+
 
 */
 
-int prime[10000001];
-int n ;
-
-int get_number(string s){
-    int num = 0;
-    int p = 0;
-    for (int i = s.size()-1; i >= 0; i--){
-        num += (s[i] - '0')*(1<<p);
-        p++;
-    }
-    return num;
-}
-bool isprime(string s){
-    
-    for (int i = 2; i <= 1000; i++){
-        for (int j = 2; j*i <= 1000; j++){
-            prime[i*j] = false;
-        }
-    }
-    int on_check = get_number(s);
-    return prime[on_check];
-
-}
-vector<string>v;
-void sub(string input, string output)
-{
-    
-    if (input.empty()) {
-        v.push_back(output);
-        return;
-    }
-
-    //we need to make two choices whether to add the char or not 
-
-    sub(input.substr(1), output + input[0]);    
-    sub(input.substr(1), output);
-
-}
-
 void solve(){
-    string s; 
-    cin >> s; 
-    sub(s,"");
-    memset(prime,true,sizeof(prime));
-    n = get_number(s);
-    int ans = 0;
-    for (auto x: v){
-        if (isprime(x)){
-            ans = max(ans, get_number(x));
-        }
+    int n,q;
+    cin>>n>>q;
+    vector<int>v(n);
+    
+    vector<int>low(n);
+    for (int i=0;i<n;i++){
+        cin>>v[i];
+        low[i] = v[i] - (i+1);
+
     }
-    cout<<ans<<endl;
+    while(q--){
+        int f;
+        cin>>f;
+        int ind  = lower_bound(low.begin(),low.end(),f) - low.begin();
+        
+        if (ind == n){
+            cout<<v[n-1] + (f - low[n-1])<<endl;
+        }
+        else {
+            cout<<(v[ind] - 1) - (low[ind] - f )<<endl;
+        }
+        
+        
+    }
+    
 
 }
 

@@ -1,0 +1,123 @@
+Aggregate Function:
+
+
+1. SELECT salesman.name, customer.cust_name, salesman.city      // INNER JOIN
+   FROM salesman, customer 
+   WHERE salesman.city = customer.city
+2. SELECT orders.ord_no, orders.purch_amt, customer.cust_name, customer.city
+   FROM orders, customer
+   WHERE orders.purch_amt BETWEEN 500 AND 2000
+3. SELECT customer.cust_name , salesman.name
+   FROM customer  
+   INNER JOIN salesman
+   ON customer.salesman_id = salesman.salesman_id
+4. SELECT customer.cust_name , salesman.name, salesman.commission 
+   FROM customer  
+   INNER JOIN salesman
+   ON customer.salesman_id = salesman.salesman_id 
+   WHERE salesman.commission > 0.12
+5. SELECT customer.cust_name , salesman.name, salesman.commission FROM customer  
+   INNER JOIN salesman 
+   ON customer.salesman_id = salesman.salesman_id 
+   WHERE salesman.commission > 0.12 AND salesman.city != customer.city
+6. SELECT orders.ord_no, orders.ord_date, orders.purch_amt, customer.cust_name, salesman.name 
+   FROM orders
+   INNER JOIN customer 
+   ON orders.customer_id = customer.customer_id
+   INNER JOIN salesman
+   ON orders.salesman_id = salesman.salesman_id
+7. SELECT * FROM orders.   // in natural join basically the common columns comes only once , it is not repeated
+   NATURAL JOIN customer
+   NATURAL JOIN salesman
+8. SELECT customer.cust_name, salesman.name 
+   FROM customer 
+   LEFT JOIN salesman.        
+   ON customer.salesman_id = salesman.salesman_id 
+   ORDER BY customer.customer_id
+   // left join is used when the condition has OR option so it if the values corresponding to left    side is not present on right side it fills those values with NULL
+9. SELECT customer.cust_name, customer.city, customer.grade, salesman.name 
+   FROM customer 
+   LEFT JOIN salesman
+   ON customer.salesman_id = salesman.salesman_id
+   WHERE customer.grade < 300
+10. SELECT customer.cust_name , customer.city, orders.ord_no, orders.ord_date, orders.purch_amt 
+    FROM orders
+    LEFT JOIN customer 
+    ON orders.customer_id = customer.customer_id
+    ORDER BY orders.ord_date
+11. SELECT customer.cust_name , customer.city, orders.ord_no, orders.ord_date, orders.purch_amt , salesman.name, salesman.commission
+    FROM customer
+    LEFT JOIN orders
+    ON orders.customer_id = customer.customer_id
+    LEFT JOIN salesman 
+    ON customer.salesman_id = salesman.salesman_id
+12. SELECT customer.cust_name ,salesman.name, salesman.city
+    FROM customer
+    RIGHT JOIN salesman
+    ON customer.salesman_id = salesman.salesman_id 
+    ORDER BY salesman.salesman_id
+    // Right join is used when the condition has OR option so it if the values corresponding to right  side is not present on left side it fills those values with NULL
+13. SELECT salesman.name, customer.cust_name, customer.city, customer.grade, orders.ord_no, orders.ord_date, orders.purch_amt 
+    FROM customer
+    RIGHT JOIN salesman 
+    ON customer.salesman_id = salesman.salesman_id
+    RIGHT JOIN orders
+    ON customer.customer_id = orders.customer_id
+14. SELECT  customer.cust_name, customer.grade, salesman.name,  orders.purch_amt, orders.ord_date 
+    FROM customer
+    RIGHT JOIN salesman.  here right join means if values corresponding to salesman is not present in customer table then it will be filled NULL
+    ON customer.salesman_id = salesman.salesman_id
+    LEFT JOIN orders.  here values corresponding to customer if not present in orders then those values will be filled NULL 
+    ON orders.customer_id = customer.customer_id
+    WHERE orders.purch_amt >= 2000
+    AND customer.grade IS NOT NULL;
+15. SELECT customer.cust_name, customer.city, orders.ord_no, orders.ord_date, orders.purch_amt AS "Orders Amount"
+    FROM customer
+    FULL OUTER JOIN orders      Full Join is combination of left outer and right outer join 
+    ON customer.salesman_id = orders.salesman_id
+16. SELECT * FROM salesman
+    CROSS JOIN customer
+17. SELECT * FROM salesman
+    CROSS JOIN customer
+    WHERE salesman.city IS NOT NULL
+18. SELECT * FROM salesman
+    CROSS JOIN customer
+    WHERE (salesman.city IS NOT NULL) AND (customer.grade IS NOT NULL)
+19. SELECT * FROM salesman
+    CROSS JOIN customer
+    WHERE (salesman.city <> customer.city) AND (customer.grade IS NOT NULL)
+    //    <> is NOT EQUAL TO
+20. SELECT * FROM company_mast 
+    INNER JOIN item_mast 
+    ON company_mast.COM_ID = item_mast.PRO_COM;
+21. SELECT item_mast.pro_name , item_mast.pro_price, company_mast.com_name FROM item_mast
+    INNER JOIN company_mast 
+    ON item_mast.pro_com = company_mast.com_id
+22. SELECT company_mast.com_name, AVG(item_mast.pro_price) 
+    FROM company_mast 
+    INNER JOIN item_mast
+    ON company_mast.com_id = item_mast.pro_com
+    GROUP BY company_mast.com_name
+23. SELECT company_mast.com_name, AVG(item_mast.pro_price) 
+    FROM company_mast 
+    INNER JOIN item_mast
+    ON company_mast.com_id = item_mast.pro_com
+    GROUP BY company_mast.com_name
+    HAVING AVG(item_mast.pro_price) >= 350
+24. SELECT company_mast.com_name, item_mast.pro_name, item_mast.pro_price 
+    FROM company_mast 
+    INNER JOIN item_mast
+    ON company_mast.com_id = item_mast.pro_com
+    AND
+    item_mast.pro_price = 
+    (
+    SELECT MAX(item_mast.pro_price)
+    FROM item_mast
+    WHERE item_mast.pro_com = company_mast.com_id
+    )
+25. SELECT a.customer_id, b.customer_id, a.city 
+    FROM table_name a , table_name b
+    WHERE a.customer_id != b.customer_id 
+    ORDER BY city DESC 
+    
+	   

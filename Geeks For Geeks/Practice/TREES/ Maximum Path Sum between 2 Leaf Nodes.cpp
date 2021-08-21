@@ -14,14 +14,7 @@ if (!root->left || !root->right){
 
 
 This condition we have put up to solve if from the root itself the left or right subtree
-is not present because condition given was (Here Leaf node is a node which is connected to exactly one different node)
-
-
-
-
-
-
-            
+is not present because condition given was (Here Leaf node is a node which is connected to exactly one different node)       
 
 
 
@@ -31,15 +24,15 @@ is not present because condition given was (Here Leaf node is a node which is co
 class Solution {
 public:
     int solve (Node* root, int &ans){
-        if (!root)return 0;
+        if (!root)return 0;   //no root
         if (!root -> left && !root -> right){
-            return root -> data;
+            return root -> data;   //leat node
         }
         
         if (root->right && root->left){
-            int d = root -> data;
-            int l  = solve(root->left,ans);
-            int r = solve(root->right,ans);
+            int d = root -> data;     // data of the root
+            int l  = solve(root->left,ans); // max from left side 
+            int r = solve(root->right,ans); // max from right side 
             ans = max(ans, l + r + d);
             return max(l,r) + d;
         }

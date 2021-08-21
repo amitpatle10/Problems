@@ -35,72 +35,69 @@ using namespace std;
 
 */
 
-int g[401][401];
+vector< vector<int> >g[401];
 
 int city;
 
-int bfs(int i,int j,int k){
+int bfs(int i,int j,int k,vector<int>dist){
     queue<int>q;
     q.push(i);
     
     while(!q.empty()){
         int t = q.front();
-        q.pop();
-        bool reach = false;
-        for (int c=1;c<=city;c++){
-            if (c==t)continue;            
+        int covered  = dist[t];
+        q.pop();        
+        
+        for (auto c : g[t]){
+
+            int d = c[1];
+            int node  = c[0];
+
+            if ((covered + d < dist[node]) && ((node<=k) || (node==j))){
+                dist[node] = covered + d;
                 
-            if ((g[i][c] > g[i][t]+g[t][c]) && ((c<=k) || (c==j))){
-                g[i][c] = g[i][t]+g[t][c];
-                if (c!=j){
-                    q.push(c);
+                if (node!=j){
+                    q.push(node);
                 }
                 
             }  
-            reach  = true;              
+                         
             
 
-        }
-        if (reach==false){
-            return 0;
-        }
+        }       
 
 
     }
-    return g[i][j];
+    if (dist[j]==INT_MAX){
+        return 0;
+    }
+    else {
+        return dist[j];
+    }
 }
 
 void solve(){
     int roades;
     cin>>city>>roades;
     
-    for (int i=1;i<=city;i++){
-        for (int j=1;j<=city;j++){
-            if (i==j)g[i][j] = 0;
-            else{
-                g[i][j] = INT_MAX;
-            }
-        }
-    }
+    
     for(int i=0;i<roades;i++){
         int a,b,c;
         cin>>a>>b>>c;
-        g[a][b] = c;
-        g[b][a] = c;
+        g[a].push_back({b,c});
 
     }
     int ans = 0;
+    
     for (int k=1;k<=city;k++){
         for (int i=1;i<=city;i++){
             for (int j=1;j<=city;j++){
+                
                 if (i==j)continue;
-                else if (g[i][j]!=INT_MAX){
-                    ans += city * g[i][j];
-                }
-                else {
-                    ans += bfs(i,j,k);
-                    deb3(i,j,bfs(i,j,k));
-                }
+                vector<int>dist(401,INT_MAX);
+                dist[i] = 0;
+                ans += bfs(i,j,k,dist);              
+            
             }
         }
     }
