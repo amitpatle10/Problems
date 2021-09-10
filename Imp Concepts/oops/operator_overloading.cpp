@@ -15,6 +15,8 @@ class complex {
             cout << "The Absolute Diff is " << real << " i" << img << endl ; 
         }
 }; 
+
+
 complex operator - (complex obj1, complex obj2){
     complex res; 
     res.real = ( obj1.real - obj2.real);
@@ -22,20 +24,20 @@ complex operator - (complex obj1, complex obj2){
     return res; 
 }
 
-class typeconversion {
-    private : 
-        int n; 
-        int d; 
-    public : 
-        typeconversion (int n, int d){
-            this->n = n; 
-            this->d = d; 
-        }
-        operator float(){
-            return (float)n / (float)d; 
-        }
+// class typeconversion {
+//     private : 
+//         int n; 
+//         int d; 
+//     public : 
+//         typeconversion (int n, int d){
+//             this->n = n; 
+//             this->d = d; 
+//         }
+//         operator float(){
+//             return (float)n / (float)d; 
+//         }
         
-};
+// };
 
 
 int main (){
@@ -43,8 +45,8 @@ int main (){
     complex c2(30, 15);
     complex c3 = c1 - c2; 
     c3.print();
-    typeconversion t(1,2);
-    float y = t; 
-    cout << y << endl ; 
+    // typeconversion t(1,2);
+    // float y = t; 
+    // cout << y << endl ; 
 
 }

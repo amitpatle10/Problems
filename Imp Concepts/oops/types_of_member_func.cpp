@@ -37,6 +37,7 @@ class base {
 
 };
 
+
 // defining friend function 
 void friend_func(){
     cout << "I am friend function" << endl; 

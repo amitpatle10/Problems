@@ -76,17 +76,17 @@ int main(){
 
 
 
-    //.....can destructor be virtual if yes what are the advantages.....//
-        // virtual destructor also deletes the derived class pointer if the base class pointer is deleted
-    // derived_virtual_des *d = new derived_virtual_des(); 
-    // virtual_des *v = d; 
-    // delete v; 
+    // .....can destructor be virtual if yes what are the advantages.....//
+    //     virtual destructor also deletes the derived class pointer if the base class pointer is deleted
+    derived_virtual_des *d = new derived_virtual_des(); 
+    virtual_des *v = d; 
+    delete v; 
 
 
     //pure virtual destructor
         
-    pure_virtual_destructor *pvd = new derived_pvd(); // created base class pointer points to the derived class 
-    delete pvd; // pure virtual destructor will be called
+    // pure_virtual_destructor *pvd = new derived_pvd(); // created base class pointer points to the derived class 
+    // delete pvd; // pure virtual destructor will be called
    
 
 
